@@ -24,6 +24,10 @@
 
 ``` docker compose exec backend python manage.py migrate ```
 
+Выполнить команду сборки статики:
+
+``` docker compose exec backend python manage.py collectstatic ```
+
 Создать суперпользователя:
 
 ``` docker compose exec backend python manage.py createsuperuser ```

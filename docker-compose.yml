@@ -2,6 +2,7 @@ version: '3.3'
 
 volumes:
   pg_data_volume:
+  static:
 
 services:
   db:
@@ -15,6 +16,8 @@ services:
     env_file: .env
     depends_on:
       - db
+    volumes:
+      - static:/app/static/  
 
   nginx:
     image: nginx:1.19.3
@@ -25,3 +28,4 @@ services:
       - backend
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - static:/var/html/static/
