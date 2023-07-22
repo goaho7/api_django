@@ -30,7 +30,7 @@
 
 ### В API доступны следующие эндпоинты:
 
-* ```api/v1/generate```  POST-запрос с параметрами `id`, `capibara_format`, `capibara_slang` и `capcapibara_phrasesibara_format`:
+* ```api/v1/generate```  POST-запрос с параметрами "id", "capibara_format", "capibara_slang" и "capcapibara_phrasesibara_format":
 
 {
     "id": {"type": "number"},
