@@ -7,17 +7,26 @@ volumes:
 services:
   db:
     image: postgres:13
+    restart: always
     env_file: .env
     volumes:
       - pg_data_volume:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5 
 
   backend:
     build: ./
     env_file: .env
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     volumes:
       - static:/app/static/  
+    command: >
+      sh -c "python manage.py migrate && python manage.py collectstatic --no-input && python manage.py runserver 0:8000"  
 
   nginx:
     image: nginx:1.19.3
