@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from capibara.models import Statement
 
 

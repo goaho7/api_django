@@ -1,12 +1,15 @@
 import xlwt
 from django.http import HttpResponse
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from capibara.models import Statement
+
+from api.permissions import IsStaffOrSuperuser
 from api.serializers import StatementSerializer
+from capibara.models import Statement
 
 
 @api_view(['POST'])
+@permission_classes([IsStaffOrSuperuser])
 def generate(request):
     serializer = StatementSerializer(data=request.data)
     if serializer.is_valid():
@@ -16,6 +19,7 @@ def generate(request):
 
 
 @api_view(['GET'])
+@permission_classes([IsStaffOrSuperuser])
 def get_statement_by_id(request, id):
     statement = Statement.objects.filter(id=id).first()
     if statement:
@@ -37,6 +41,7 @@ def get_statement_by_id(request, id):
 
 
 @api_view(['GET'])
+@permission_classes([IsStaffOrSuperuser])
 def get_statements_by_slang(request, slang):
     statements = Statement.objects.filter(capibara_slang=slang)
     if statements:

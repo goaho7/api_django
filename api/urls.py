@@ -1,4 +1,5 @@
 from django.urls import path
+
 from api.views import generate, get_statement_by_id, get_statements_by_slang
 
 urlpatterns = [
